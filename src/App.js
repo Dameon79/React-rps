@@ -28,7 +28,7 @@ class App extends Component {
     this.computerSelection = this.computerSelection.bind(this)
     this.playerSelection = this.playerSelection.bind(this)
     this.playRound = this.playRound.bind(this)
-    this.endGame = this.endGame.bind(this)
+    this.CheckScores = this.CheckScores.bind(this)
   }
 
   resetGame () {  
@@ -49,7 +49,7 @@ class App extends Component {
     return playerMove
   }
 
-  endGame(playerScore, computerScore) {
+  CheckScores(playerScore, computerScore) {
 
     if (playerScore === 5 ) {
       this.setState({gameOver: true})
@@ -70,7 +70,7 @@ class App extends Component {
 
     let {computerScore, playerScore, gameOver} = this.state
 
-    this.endGame(playerScore, computerScore)
+    this.CheckScores(playerScore, computerScore)
     
     if (gameOver === false) {
       if (playerSelection === computerSelection) {
@@ -98,6 +98,7 @@ class App extends Component {
     }
 
   render() {
+    const {playerScore, computerScore} = this.state
    return (
     <>
       <h1 className='gameTitle'>Welcome to Rock, Paper, Scissors
@@ -119,8 +120,8 @@ class App extends Component {
 
       <div className='scoreTracker'>
         <h2>Score Board</h2>
-        <ScoreContainer id={'pScore'} scoreLabel={this.state.playerScore} playerLabel={'Player Score'} />
-        <ScoreContainer id={'cScore'} scoreLabel={this.state.computerScore} playerLabel={'Computer Score'} />
+        <ScoreContainer id={'pScore'} scoreLabel={playerScore} playerLabel={'Player Score'} />
+        <ScoreContainer id={'cScore'} scoreLabel={computerScore} playerLabel={'Computer Score'} />
       </div>
     </>
     );
