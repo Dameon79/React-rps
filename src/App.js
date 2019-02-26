@@ -38,7 +38,6 @@ class App extends Component {
   computerSelection () {
     const randomArraySelector = Math.floor(Math.random() * Math.floor(3))
     const computerOptions = ['ROCK', 'PAPER', 'SCISSORS']
-   
     const computerMove = computerOptions[randomArraySelector]
     
     return(computerMove)
@@ -53,12 +52,14 @@ class App extends Component {
   endGame(playerScore, computerScore) {
 
     if (playerScore === 5 ) {
+      this.setState({gameOver: true})
       document.getElementById('displayScores').innerHTML = `Congratulations you Win!! ${playerScore}, points to ${computerScore}, Click reset to play again`
       document.getElementById('pScore').setAttribute('style','background-color: #f4dc42;');
-    
-    } else if(computerScore === 5) {
+    } else if (computerScore === 5) {
+      this.setState({gameOver: true})
       document.getElementById('displayScores').innerHTML = `Unlucky you Lose!! ${playerScore}, points to ${computerScore}, Click reset to try again`
       document.getElementById('cScore').setAttribute('style','background-color: #f4dc42;');
+      
     } 
   }
 
@@ -69,6 +70,8 @@ class App extends Component {
 
     let {computerScore, playerScore, gameOver} = this.state
 
+    this.endGame(playerScore, computerScore)
+    
     if (gameOver === false) {
       if (playerSelection === computerSelection) {
         document.getElementById('displayScores').innerHTML = `You played ${playerSelection}, Computer played ${computerSelection}, This round is a draw`
@@ -95,7 +98,6 @@ class App extends Component {
     }
 
   render() {
-
    return (
     <>
       <h1 className='gameTitle'>Welcome to Rock, Paper, Scissors
