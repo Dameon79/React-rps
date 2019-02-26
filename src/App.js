@@ -32,13 +32,13 @@ class App extends Component {
 
   computerSelection () {
     const randomArraySelector = Math.floor(Math.random() * Math.floor(3))
-    const computerChoices =['ROCK', 'PAPER', 'SCISSORS']
+    const computerChoice = ['ROCK', 'PAPER', 'SCISSORS']
 
-    return(computerChoices[randomArraySelector])
+    return(computerChoice[randomArraySelector])
   }
 
-  playerSelection (e) {
-    const playerChoice = e.target.value
+  playerSelection (event) {
+    const playerChoice = event.target.value
 
     return playerChoice
   }

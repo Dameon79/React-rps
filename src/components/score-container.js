@@ -6,9 +6,9 @@ class ScoreContainer extends Component {
     
     return (
       <div className='scoreContainer'>
-          <h2>{playerLabel}</h2>
-          <div className='scoreCounter' id={id}>{scoreLabel}</div>
-        </div>
+        <h2>{playerLabel}</h2>
+        <div className='scoreCounter' id={id}>{scoreLabel}</div>
+      </div>
     )
   }
 }
