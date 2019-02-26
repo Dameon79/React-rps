@@ -18,33 +18,84 @@ class App extends Component {
 
     this.state = {
       playerScore: 0,
-      computerScore: 0
+      computerScore: 0,
+      gameOver: false,
+      playerChoice: '',
+      computerChoice: ''
     }
 
     this.resetGame = this.resetGame.bind(this)
     this.computerSelection = this.computerSelection.bind(this)
     this.playerSelection = this.playerSelection.bind(this)
+    this.playRound = this.playRound.bind(this)
+    this.endGame = this.endGame.bind(this)
   }
 
-  resetGame () {
+  resetGame () {  
     window.location.reload()
   }
 
   computerSelection () {
     const randomArraySelector = Math.floor(Math.random() * Math.floor(3))
-    const computerChoice = ['ROCK', 'PAPER', 'SCISSORS']
-
-    return(computerChoice[randomArraySelector])
+    const computerOptions = ['ROCK', 'PAPER', 'SCISSORS']
+   
+    const computerMove = computerOptions[randomArraySelector]
+    
+    return(computerMove)
   }
 
   playerSelection (event) {
-    const playerChoice = event.target.value
-
-    return playerChoice
+    const playerMove = event.target.value
+    
+    return playerMove
   }
 
+  endGame(playerScore, computerScore) {
+
+    if (playerScore === 5 ) {
+      document.getElementById('displayScores').innerHTML = `Congratulations you Win!! ${playerScore}, points to ${computerScore}, Click reset to play again`
+      document.getElementById('pScore').setAttribute('style','background-color: #f4dc42;');
+    
+    } else if(computerScore === 5) {
+      document.getElementById('displayScores').innerHTML = `Unlucky you Lose!! ${playerScore}, points to ${computerScore}, Click reset to try again`
+      document.getElementById('cScore').setAttribute('style','background-color: #f4dc42;');
+    } 
+  }
+
+  playRound(event) {
+    
+    const computerSelection = this.computerSelection()
+    const playerSelection  = this.playerSelection(event)
+
+    let {computerScore, playerScore, gameOver} = this.state
+
+    if (gameOver === false) {
+      if (playerSelection === computerSelection) {
+        document.getElementById('displayScores').innerHTML = `You played ${playerSelection}, Computer played ${computerSelection}, This round is a draw`
+        } else if (playerSelection === "ROCK" && computerSelection === "PAPER") {
+          this.setState({computerScore: ++computerScore})
+          document.getElementById('displayScores').innerHTML = `You played ${playerSelection}, Computer played ${computerSelection}, You Lose, Paper beats Rock!`
+        } else if (playerSelection === "ROCK" && computerSelection === "SCISSORS") {
+          this.setState({playerScore: ++playerScore})
+          document.getElementById('displayScores').innerHTML = `You played ${playerSelection}, Computer played ${computerSelection}, You Win!, Rock beats Scissors`
+        } else if (playerSelection === "PAPER" && computerSelection === "ROCK") {
+          this.setState({playerScore: ++playerScore})
+          document.getElementById('displayScores').innerHTML = `You played ${playerSelection}, Computer played ${computerSelection}, You Win, Paper beats Rock!`
+        } else if (playerSelection === "PAPER" && computerSelection === "SCISSORS") {
+          this.setState({computerScore: ++computerScore})
+          document.getElementById('displayScores').innerHTML = `You played ${playerSelection}, Computer played ${computerSelection}, You Lose, Scissors beats Paper!`
+        } else if (playerSelection === "SCISSORS" && computerSelection === "PAPER") {
+          this.setState({playerScore: ++playerScore})
+          document.getElementById('displayScores').innerHTML = `You played ${playerSelection}, Computer played ${computerSelection}, You Win, Scissors beats Paper!`
+        } else {
+          this.setState({computerScore: ++computerScore})
+          document.getElementById('displayScores').innerHTML = `You played ${playerSelection}, Computer played ${computerSelection}, You Lose, Rock beats Scissors!`
+        }
+      }
+    }
 
   render() {
+
    return (
     <>
       <h1 className='gameTitle'>Welcome to Rock, Paper, Scissors
@@ -53,9 +104,9 @@ class App extends Component {
 
       <div className='button-container'>
         <h2>Player Choice</h2>
-        <GameButton className={'button'} src={rock} label={'Rock'} value={'ROCK'} onClick={this.playerSelection} />
-        <GameButton className={'button'} src={paper} label={'Paper'} value={'PAPER'} onClick={this.playerSelection} />
-        <GameButton className={'button'} src={scissors} label={'Scissors'} value={'SCISSORS'} onClick={this.playerSelection} />
+        <GameButton className={'button'} src={rock} label={'Rock'} value={'ROCK'} onClick={this.playRound} />
+        <GameButton className={'button'} src={paper} label={'Paper'} value={'PAPER'} onClick={this.playRound} />
+        <GameButton className={'button'} src={scissors} label={'Scissors'} value={'SCISSORS'} onClick={this.playRound} />
         
       </div>
 
