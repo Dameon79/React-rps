@@ -69,8 +69,6 @@ class App extends Component {
     const playerSelection  = this.playerSelection(event)
 
     let {computerScore, playerScore, gameOver} = this.state
-
-    this.CheckScores(playerScore, computerScore)
     
     if (gameOver === false) {
       if (playerSelection === computerSelection) {
@@ -78,21 +76,27 @@ class App extends Component {
         } else if (playerSelection === "ROCK" && computerSelection === "PAPER") {
           this.setState({computerScore: ++computerScore})
           document.getElementById('displayScores').innerHTML = `You played ${playerSelection}, Computer played ${computerSelection}, You Lose, Paper beats Rock!`
+          this.CheckScores(playerScore, computerScore)
         } else if (playerSelection === "ROCK" && computerSelection === "SCISSORS") {
           this.setState({playerScore: ++playerScore})
           document.getElementById('displayScores').innerHTML = `You played ${playerSelection}, Computer played ${computerSelection}, You Win!, Rock beats Scissors`
+          this.CheckScores(playerScore, computerScore)
         } else if (playerSelection === "PAPER" && computerSelection === "ROCK") {
           this.setState({playerScore: ++playerScore})
           document.getElementById('displayScores').innerHTML = `You played ${playerSelection}, Computer played ${computerSelection}, You Win, Paper beats Rock!`
+          this.CheckScores(playerScore, computerScore)
         } else if (playerSelection === "PAPER" && computerSelection === "SCISSORS") {
           this.setState({computerScore: ++computerScore})
           document.getElementById('displayScores').innerHTML = `You played ${playerSelection}, Computer played ${computerSelection}, You Lose, Scissors beats Paper!`
+          this.CheckScores(playerScore, computerScore)
         } else if (playerSelection === "SCISSORS" && computerSelection === "PAPER") {
           this.setState({playerScore: ++playerScore})
           document.getElementById('displayScores').innerHTML = `You played ${playerSelection}, Computer played ${computerSelection}, You Win, Scissors beats Paper!`
+          this.CheckScores(playerScore, computerScore)
         } else {
           this.setState({computerScore: ++computerScore})
           document.getElementById('displayScores').innerHTML = `You played ${playerSelection}, Computer played ${computerSelection}, You Lose, Rock beats Scissors!`
+          this.CheckScores(playerScore, computerScore)
         }
       }
     }
